@@ -1,6 +1,5 @@
 import {
   IsBoolean,
-  IsDate,
   IsDateString,
   IsInt,
   IsNotEmpty,
@@ -9,6 +8,8 @@ import {
   Length,
   Max,
   Min,
+  IsArray,
+  IsUUID,
 } from 'class-validator';
 
 export class MovieDto {
@@ -33,4 +34,8 @@ export class MovieDto {
   @IsNotEmpty()
   @IsDateString()
   releaseDate: Date;
+  @IsNotEmpty()
+  @IsArray()
+  @IsUUID('4', { each: true })
+  actorIds: string[];
 }

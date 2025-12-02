@@ -14,9 +14,12 @@ export class ReviewService {
   ) {}
 
   async create(dto: CreateReviewDto): Promise<ReviewEntity> {
-    await this.movieService.findById(dto.movieId);
+    const movie = await this.movieService.findById(dto.movieId);
 
-    const review = this.reviewRepository.create(dto);
+    const review = this.reviewRepository.create({
+      ...dto,
+      movie,
+    });
     return await this.reviewRepository.save(review);
   }
 }

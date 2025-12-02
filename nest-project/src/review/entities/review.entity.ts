@@ -25,7 +25,7 @@ export class ReviewEntity {
   })
   movieId: number;
 
-  @ManyToOne(() => MovieEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => MovieEntity, (movie) => movie.reviews, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'movie_id' })
   movie: MovieEntity;
 
