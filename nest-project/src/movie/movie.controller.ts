@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  HttpCode,
+} from '@nestjs/common';
 import { MovieService } from './movie.service';
-import { CreateMovieDto } from './dto/create-movie-dto';
+import { MovieDto } from './dto/movie.dto';
 
 @Controller('movies')
 export class MovieController {
@@ -12,7 +21,27 @@ export class MovieController {
   }
 
   @Post()
-  async create(@Body() dto: CreateMovieDto) {
+  async create(@Body() dto: MovieDto) {
     return await this.movieService.create(dto);
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    const numberId = Number(id);
+    return await this.movieService.findById(numberId);
+  }
+
+  @Put(':id')
+  @HttpCode(204)
+  async update(@Param('id') id: string, @Body() dto: MovieDto) {
+    const numberId = Number(id);
+    return await this.movieService.update(numberId, dto);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  async delete(@Param('id') id: string) {
+    const numberId = Number(id);
+    return await this.movieService.delete(numberId);
   }
 }

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TaskModule } from './task/task.module';
 import { MovieModule } from './movie/movie.module';
-import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getTypeOrmConfig } from './config/typeorm.config';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -18,9 +17,8 @@ import { getTypeOrmConfig } from './config/typeorm.config';
       useFactory: getTypeOrmConfig,
       inject: [ConfigService],
     }),
-    TaskModule,
     MovieModule,
-    UserModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],
